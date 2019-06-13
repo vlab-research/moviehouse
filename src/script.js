@@ -30,7 +30,15 @@ function setPlayer() {
   const player = new Vimeo.Player('vimeoVideo', options);
 
   player.ready().then(() => {
-    player.on('ended', data => handleEvent(data, 'ended'));
+    player.on('ended', data => {
+      handleEvent(data, 'ended');
+      MessengerExtensions.requestCloseBrowser(
+        function success() {
+          console.log('success')
+        }, function error(err) {
+          console.log('error')
+        });
+    });
 
     player.on('error', data => handleEvent(data, 'error'));
 
@@ -46,7 +54,7 @@ function setPlayer() {
   }).catch((err) => {
     const title = '❌ Not found';
     const message = 'Sorry, we couldn’t find that video'
-    handleError(err, title, message);    
+    handleError(err, title, message);
   });
 }
 
