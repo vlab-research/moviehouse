@@ -36,7 +36,7 @@ function setPlayer() {
         function success() {
           console.log('success')
         }, function error(err) {
-          console.log('error')
+          console.log('error', err)
         });
     });
 
