@@ -31,25 +31,19 @@ function setPlayer() {
 
   player.ready().then(() => {
     player.on('ended', data => {
-      handleEvent(data, 'ended');
       MessengerExtensions.requestCloseBrowser(
         function success() {
-          console.log('success')
+          handleEvent(data, 'ended');
         }, function error(err) {
-          console.log('error', err)
-        });
+          console.error(err);
+        }
+      );
     });
-
     player.on('error', data => handleEvent(data, 'error'));
-
     player.on('pause', data => handleEvent(data, 'pause'));
-
     player.on('play', data => handleEvent(data, 'play'));
-
     player.on('playbackratechange', data => handleEvent(data, 'playbackratechange'));
-
     player.on('seeked', data => handleEvent(data, 'seeked'));
-
     player.on('volumechange', data => handleEvent(data, 'volumechange'));
   }).catch((err) => {
     const title = '❌ Not found';
